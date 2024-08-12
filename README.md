@@ -5,7 +5,7 @@
 
 GitHub 演示：[https://maddog888.github.io/Ps_Pal/](https://maddog888.github.io/Ps_Pal/) 
 
-> 当前支持：微信打赏
+> 当前支持：VX打赏
 > 
 > MadDogQQ交流群：591668872
 
