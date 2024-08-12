@@ -3,6 +3,8 @@
 
 解决“被打赏人”在收到打赏后无法立刻回应或者回馈“打赏人”问题，同时分享一个除使用主流数据库的数据处理方案。
 
+GitHub 演示：https://maddog888.github.io/ps_pal/  
+
 > 当前支持：微信打赏
 > 
 > MadDogQQ交流群：591668872
@@ -25,12 +27,10 @@
 > 
 1、使用Windows的窗体控件交互访问指定窗口上的内容，并通过MQTT协议实现与打赏端的通信，均已使用sha256签名验证数据真伪。
 
-## 版权
-
-请遵循https://github.com/maddog888/ps_pal/blob/main/LICENSE
-
 2、使用服务端即数据库本身的思路开发，并且使用当代物理网MQTT协议的加持通信，使得该方案优于使用主流数据库方案！
 
-GitHub 演示：https://maddog888.github.io/ps_pal/  
+## 版权
+
+请遵循./LICENSE
 
 
