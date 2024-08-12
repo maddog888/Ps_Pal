@@ -33,3 +33,12 @@ GitHub 演示：[https://maddog888.github.io/Ps_Pal/](https://maddog888.github.i
 
 请遵循[LICENSE](https://github.com/maddog888/ps_pal/blob/main/LICENSE)。
 
+## 其他
+
+因使用sha256加密，采用的是openssl的动态链接库，来自https://www.opendll.com/index.php?file-download=libeay32-1.0.0-msvcrt.dll&arch=32bit&version=&dsc=#
+
+MD5：905a08c595f950e9152635fd3b84d659
+
+请注意甄别！
+
+
