@@ -76,11 +76,6 @@
 
     // 配置通信群组
     const topic = 'test';
-    // 配置上方通信群组后可删除此判断
-    if(topic==='test'){
-        alert('请先配置通信群组！');
-        throw new Error('请不要使用默认测试通信群组');
-    }
 
     var client;  //创建客户端
     // 判断是否需要使用SSL
