@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <title>创建打赏 - Ps Pal</title>
+    <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+    <div class="container" style="display: inline-block;">
+        <form action="./PsPal.html" onsubmit="return handleFormSubmit(event);" class="card-container">
+            <h2><font color="#58bf6a">创建打赏 - 仅供演示</font></h2>
+            <div style="font-size: 80%;">
+                打赏号:
+                <input id="no" name="no" />
+                &nbsp;&nbsp;&nbsp;
+                打赏金额:
+                <input id="price" name="price" />
+            </div>
+            <br />
+            <div style="font-size: 80%;">
+                同步回调:
+                <input id="rurl" name="rurl" />
+                &nbsp;&nbsp;&nbsp;
+                异步回调:
+                <input id="nurl" name="nurl" />
+            </div>
+            <br />
+            <div style="font-size: 80%;">
+                通信秘钥:
+                <input value="123456" id="key" name="key" />
+                <input id="sign" name="sign" hidden />
+                &nbsp;&nbsp;&nbsp;
+                <button>提交创建</button>
+            </div>
+        </form>
+    </div>
+    <div style="font-size: 0.9rem;">
+        Copyright © MadDog | <a target="_blank" href="https://github.com/maddog888/ps_pal/">Ps_Pal项目源码</a>
+    </div>
+</body>
+<script>
+    // 注意！！！
+    // 该页面仅供演示，建议使用后端代码实现创建
+    // 👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻👆🏻
+
+    // 获取当前时间并转换为纯数字
+    const now = new Date();
+    const currentTime = now.getFullYear() + String(now.getMonth()+1) + String(now.getDate());
+    // 生成5位随机数
+    const randomNum = Math.floor(100000 + Math.random() * 900000);
+    
+    // 设置打赏号
+    var no = document.getElementById('no');
+    no.value = currentTime + randomNum;
+
+    // 设置打赏金额为1到10之间的随机整数
+    var price = document.getElementById('price');
+    price.value = String(Math.floor(Math.random() * 10) + 1)+'.00';
+
+    // 获取当前域名地址
+    const currentUrl = window.location.href;
+
+    // 设置同步和异步回调URL
+    var rurl = document.getElementById('rurl');
+    rurl.value = currentUrl;
+    var nurl = document.getElementById('nurl');
+    nurl.value = currentUrl;
+
+    // 初始化通信秘钥和Sign
+    var key = document.getElementById('key');
+    var sign = document.getElementById('sign');
+
+    async function handleFormSubmit(event) {
+        event.preventDefault(); // 阻止表单的默认提交行为
+        
+        // 签名生成
+        const result = await generateSignature();
+        
+        // 签名成功
+        if (result) {
+            // 赋值签名数据
+            sign.value = result;
+            // 提交表单
+            event.target.submit();
+        }
+    }
+
+    // 定义一个异步函数来处理签名的生成
+    async function generateSignature() {
+        // 组成签名数据
+        let signText = no.value + price.value + nurl.value + key.value;
+        console.log(signText);
+        
+        const hash = await sha256(signText);
+        console.log(`SHA-256 hash: ${hash}`);
+        return hash;
+    }
+
+    // sha256签名函数
+    async function sha256(message) {
+        // 将字符串转换为Uint8Array
+        const msgBuffer = new TextEncoder().encode(message);
+        
+        // 使用crypto.subtle.digest()生成哈希
+        const hashBuffer = await window.crypto.subtle.digest('SHA-256', msgBuffer);
+        
+        // 将 ArrayBuffer 转换成 Uint8Array，然后转换为十六进制字符串
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        
+        return hashHex;
+    }
+</script>
+</html>

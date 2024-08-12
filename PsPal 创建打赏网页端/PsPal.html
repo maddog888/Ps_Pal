@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <title>打赏自动处理 - Ps Pal</title>
+    <link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+    <!-- 遮罩层 -->
+    <div class="loading-overlay">
+        <div class="loading-spinner"></div>
+        <div style="position: absolute;margin-top: 100px;color: #58bf6a;" id="loaddingText">正在连接...</div>
+    </div>
+    <!-- 主页面 -->
+    <div class="container">
+        <div class="card-container">
+            <h2 style="margin: 5px;">使用 “<font color="#58bf6a">微信</font>” 扫码打赏</h2>
+            <div style="margin-bottom: 10px;font-size: 0.5em;">有效时间：<span id="countdown">加载中...</span>,过期系统将无法识别</div>
+            <div class="overlay-container">
+                <img id="img" src="./wx.png" alt="微信打赏码">
+                <div class="overlay-text">打赏号：<span id="no">加载中</span></div>
+            </div>
+            <div style="color: #C9191D;font-size: 80%;margin-top: 6px;">打赏金额</div>
+            <div style="font-size: 2rem;">￥ <span id="price">0.00</span></div>
+            <div style="font-size: 0.9rem;">注意：请根据显示金额打赏，以免无法正常识别。</div>
+        </div>
+        <div class="card-container">
+            <div style="font-size: 0.9rem;">备注：打赏后系统会自动识别并完成跳转。</div>
+        </div>
+
+        <!-- 开源 -->
+        <div style="font-size: 0.9rem;margin-top: 20px;">
+            Copyright © MadDog | <a target="_blank" href="https://github.com/maddog888/ps_pal/">Ps_Pal项目源码</a>
+        </div>
+    </div>
+</body>
+<script>
+    // 设置页面ID
+    const loadding = document.querySelector('.loading-overlay');
+    const loaddingText = document.getElementById('loaddingText');
+    const container = document.querySelector('.container');
+    const nowPrice = document.getElementById('price');
+    const countdown = document.getElementById('countdown');
+    // 获取 URL 中的参数
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    // 检查必要的参数是否存在且非空
+    const requiredParams = ['no', 'price', 'rurl', 'nurl', 'sign'];
+    const missingParams = requiredParams.filter(param => !urlParams.has(param) || urlParams.get(param) === '');
+    if (missingParams.length > 0) {
+        alert('参数有误，请刷新后重新创建！');
+        window.history.go(-1);
+        throw new Error('参数有误，请检查必传参数是否存在！');
+    }
+    // 赋值变量
+    const no = urlParams.get('no');    // 打赏号
+    document.getElementById('no').textContent = no; //设置打赏号
+    const price = urlParams.get('price');  // 金额
+    const rurl = urlParams.get('rurl');    // 同步地址
+    const nurl = urlParams.get('nurl');    // 异步地址
+    const sign = urlParams.get('sign');    // 验证数据
+    // 组合数据
+    const data = { "no": no, "price": price, "nurl": nurl, "sign": sign };
+    // 将数组转换为JSON字符串
+    const jsonString = JSON.stringify(data);
+</script>
+<!-- 导入mqtt库 -->
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<script>
+    // 是否打开SSL安全连接
+    const ssl = true;
+    // 配置MQTT服务器
+    const server = "broker.emqx.io";
+
+    // 配置通信群组
+    const topic = 'test';
+    // 配置上方通信群组后可删除此判断
+    if(topic==='test'){
+        alert('请先配置通信群组！');
+        throw new Error('请不要使用默认测试通信群组');
+    }
+
+    var client;  //创建客户端
+    // 判断是否需要使用SSL
+    if(ssl){
+        // 配置 MQTT 客户端 SSL版本
+        client = mqtt.connect('wss://'+ server +':8084/mqtt');
+    }else{
+        client = mqtt.connect('ws://'+ server +':8083/mqtt');
+    }
+</script>
+<script src="./assets/wen.js?v=3"></script>
+</html>
