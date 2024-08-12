@@ -31,5 +31,5 @@ GitHub 演示：https://maddog888.github.io/ps_pal/
 
 ## 版权
 
-请遵循(/LICENSE)
+请遵循[LICENSE](https://github.com/maddog888/ps_pal/blob/main/LICENSE)
 
