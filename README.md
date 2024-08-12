@@ -3,7 +3,7 @@
 
 解决“被打赏人”在收到打赏后无法立刻回应或者回馈“打赏人”问题，同时分享一个除使用主流数据库的数据处理方案。
 
-GitHub 演示：https://maddog888.github.io/ps_pal/  
+GitHub 演示：[https://maddog888.github.io/Ps_Pal/](https://maddog888.github.io/Ps_Pal/) 
 
 > 当前支持：微信打赏
 > 
