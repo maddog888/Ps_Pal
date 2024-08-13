@@ -3,9 +3,9 @@
 
 解决“被打赏人”在收到打赏后无法立刻回应或者回馈“打赏人”问题，同时分享一个除使用主流数据库的数据处理方案。
 
-GitHub 演示：https://maddog888.github.io/ps_pal/  
+GitHub 演示：[https://maddog888.github.io/Ps_Pal/](https://maddog888.github.io/Ps_Pal/) 
 
-> 当前支持：微信打赏
+> 当前支持：VX打赏
 > 
 > MadDogQQ交流群：591668872
 
@@ -32,4 +32,13 @@ GitHub 演示：https://maddog888.github.io/ps_pal/
 ## 版权
 
 请遵循[LICENSE](https://github.com/maddog888/ps_pal/blob/main/LICENSE)。
+
+## 其他
+
+因使用sha256加密，采用的是openssl的动态链接库，libeay32.dll文件来自https://www.opendll.com/index.php?file-download=libeay32-1.0.0-msvcrt.dll&arch=32bit&version=&dsc=#
+
+MD5：905a08c595f950e9152635fd3b84d659
+
+请注意甄别！
+
 
