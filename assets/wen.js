@@ -54,8 +54,8 @@ const documentReady = () => {
                     if(out){
                         return;
                     }
-                    // 将过期时间字符串转换为 Date 对象
-                    const expirationDate = new Date(result.gqtime);
+                    // 将过期时间字符串转换为 Date 对象 指定时区兼容更多浏览器
+                    const expirationDate = new Date(result.gqtime.replace(/ /g, 'T') + '+08:00');
                     
                     // 获取当前时间
                     const currentDate = new Date();
@@ -66,6 +66,7 @@ const documentReady = () => {
                         // 设置状态为退出
                         out = true;
                         // 关闭
+                        
                         closePal();
                         return;
                     }
@@ -84,9 +85,9 @@ const documentReady = () => {
 
     // 连接断开时的回调函数
     client.on('close', () => {
-        console.log('连接已断开');
-        alert("MQTT端不稳定，可以关闭SSL试试！");
-        closePal();
+        if(ssl){
+            client = mqtt.connect('ws://'+ server +':8083/mqtt');
+        }
     });
 
     // 发生错误时的回调函数
